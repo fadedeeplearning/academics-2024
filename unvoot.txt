@@ -1,0 +1,139 @@
+┌──(fade㉿kali)-[~]
+└─$ sudo fdisk -l
+Disk /dev/sda: 465.76 GiB, 500107862016 bytes, 976773168 sectors
+Disk model: ST3500312CS     
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xefcdc530
+
+Device     Boot   Start       End   Sectors   Size Id Type
+/dev/sda1  *       2048    999423    997376   487M 83 Linux
+/dev/sda2       1001470 976771071 975769602 465.3G  f W95 Ext'd
+/dev/sda5       1001472 976771071 975769600 465.3G 8e Linux LVM
+
+
+Disk /dev/mapper/kali--vg-root: 464.32 GiB, 498564333568 bytes, 973758464 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/kali--vg-swap_1: 980 MiB, 1027604480 bytes, 2007040 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sdb: 28.67 GiB, 30784094208 bytes, 60125184 sectors
+Disk model:  SanDisk 3.2Gen1
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x3ef00a4f
+
+Device     Boot Start      End  Sectors  Size Id Type
+/dev/sdb1  *     2048 60125183 60123136 28.7G  c W95 FAT32 (LBA
+                                                               
+┌──(fade㉿kali)-[~]
+└─$ sudo wipefs --all /dev/sdb
+/dev/sdb: 2 bytes were erased at offset 0x000001fe (dos): 55 aa
+/dev/sdb: calling ioctl to re-read partition table: Success
+                                                               
+┌──(fade㉿kali)-[~]
+└─$ sudo fdisk -l             
+Disk /dev/sda: 465.76 GiB, 500107862016 bytes, 976773168 sectors
+Disk model: ST3500312CS     
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xefcdc530
+
+Device     Boot   Start       End   Sectors   Size Id Type
+/dev/sda1  *       2048    999423    997376   487M 83 Linux
+/dev/sda2       1001470 976771071 975769602 465.3G  f W95 Ext'd
+/dev/sda5       1001472 976771071 975769600 465.3G 8e Linux LVM
+
+
+Disk /dev/mapper/kali--vg-root: 464.32 GiB, 498564333568 bytes, 973758464 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/kali--vg-swap_1: 980 MiB, 1027604480 bytes, 2007040 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sdb: 28.67 GiB, 30784094208 bytes, 60125184 sectors
+Disk model:  SanDisk 3.2Gen1
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+                                                               
+┌──(fade㉿kali)-[~]
+└─$ sudo cfdisk /dev/sdb
+
+
+Syncing disks.
+                                                               
+┌──(fade㉿kali)-[~]
+└─$ sudo mkfs.exfat -n 'fade' /dev/sdb1
+exfatprogs version : 1.2.2
+Creating exFAT filesystem(/dev/sdb1, cluster size=32768)
+
+Writing volume boot record: done
+Writing backup volume boot record: done
+Fat table creation: done
+Allocation bitmap creation: done
+Upcase table creation: done
+Writing root directory entry: done
+Synchronizing...
+
+exFAT format complete!
+                                                               
+┌──(fade㉿kali)-[~]
+└─$ sudo fdisk -l                      
+Disk /dev/sda: 465.76 GiB, 500107862016 bytes, 976773168 sectors
+Disk model: ST3500312CS     
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xefcdc530
+
+Device     Boot   Start       End   Sectors   Size Id Type
+/dev/sda1  *       2048    999423    997376   487M 83 Linux
+/dev/sda2       1001470 976771071 975769602 465.3G  f W95 Ext'd
+/dev/sda5       1001472 976771071 975769600 465.3G 8e Linux LVM
+
+
+Disk /dev/mapper/kali--vg-root: 464.32 GiB, 498564333568 bytes, 973758464 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/kali--vg-swap_1: 980 MiB, 1027604480 bytes, 2007040 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sdb: 28.67 GiB, 30784094208 bytes, 60125184 sectors
+Disk model:  SanDisk 3.2Gen1
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x1420614b
+
+Device     Boot Start      End  Sectors  Size Id Type
+/dev/sdb1        2048 60125183 60123136 28.7G 83 Linux
+                     
+
